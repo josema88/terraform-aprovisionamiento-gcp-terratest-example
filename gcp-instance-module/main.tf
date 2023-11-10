@@ -1,6 +1,6 @@
 resource "google_compute_instance" "default" {
   project      = var.project
-  name         = var.instance_name
+  name         = "${var.instance_name}-${var.sandbox_id}"
   machine_type = var.machine_type
   zone         = var.zone
 
@@ -21,7 +21,7 @@ resource "google_compute_instance" "default" {
 }
 resource "google_compute_firewall" "default" {
   project = var.project
-  name    = var.firewall_rule_name
+  name    = "${var.firewall_rule_name}-${var.sandbox_id}"
   network = var.network_interface
 
   allow {

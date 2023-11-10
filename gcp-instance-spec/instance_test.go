@@ -9,11 +9,17 @@ import (
 )
 
 func TestTerraformHelloWorldExample(t *testing.T) {
+
+	// Define terraform variables - Set this value with your project ID
+	project := ""
 	// Construct the terraform options with default retryable errors to handle the most common
 	// retryable errors in terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// Set the path to the Terraform code that will be tested.
 		TerraformDir: "../gcp-instance-module",
+		Vars:  map[string]interface{} {
+			"project": project,
+		},
 	})
 
 	// Clean up resources with "terraform destroy" at the end of the test.
@@ -24,5 +30,5 @@ func TestTerraformHelloWorldExample(t *testing.T) {
 
 	// Run `terraform output` to get the values of output variables and check they have the expected values.
 	output := terraform.Output(t, terraformOptions, "instance_name")
-	assert.Equal(t, "my-instance2", output)
+	assert.Equal(t, "my-instance", output)
 }

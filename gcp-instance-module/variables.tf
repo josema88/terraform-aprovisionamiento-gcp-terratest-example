@@ -1,5 +1,4 @@
 variable "project" {
-  default = "sandbox-local-264"
 }
 variable "instance_name" {
   default = "my-instance"
@@ -27,4 +26,6 @@ variable "allow_ports" {
 }
 variable "allow_protocol" {
   default = "tcp"
+}
+variable "sandbox_id" {
 }

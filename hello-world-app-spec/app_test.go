@@ -14,11 +14,19 @@ import (
 )
 
 func TestTerraformHelloWorldExample(t *testing.T) {
+	
+	// Define terraform variables - Set this value with your project ID
+	project := ""
+
+	
 	// Construct the terraform options with default retryable errors to handle the most common
 	// retryable errors in terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// Set the path to the Terraform code that will be tested.
 		TerraformDir: "../gcp-instance-module",
+		Vars:  map[string]interface{} {
+			"project": project,
+		},
 	})
 
 	// Clean up resources with "terraform destroy" at the end of the test.
@@ -39,12 +47,11 @@ func TestTerraformHelloWorldExample(t *testing.T) {
 	maxRetries := 30
 	timeBetweenRetries := 5 * time.Second
 
-	// It get app url
+	// Get app url
 	app_url := terraform.Output(t, terraformOptions, "app_url")
 	
 	
-	// Verify that we get back a 200 OK with the expected instanceText
-	//http_helper.HttpGetWithRetry(t, app_url, &tlsConfig, 200, expectedBody, maxRetries, timeBetweenRetries)
+	// Verify that we get back a 200 OK and the body contains specific text
 	
 	http_helper.HttpGetWithRetryWithCustomValidation(
 		t,
