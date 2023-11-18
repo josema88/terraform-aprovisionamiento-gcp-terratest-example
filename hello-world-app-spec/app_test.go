@@ -16,7 +16,7 @@ import (
 func TestTerraformHelloWorldExample(t *testing.T) {
 	
 	// Define terraform variables - Set this value with your project ID
-	project := ""
+	project := "sandbox5-208"
 
 	
 	// Construct the terraform options with default retryable errors to handle the most common
@@ -37,7 +37,7 @@ func TestTerraformHelloWorldExample(t *testing.T) {
 
 	// Run `terraform output` to get the values of output variables and check they have the expected values.
 	output := terraform.Output(t, terraformOptions, "instance_name")
-	assert.Equal(t, "my-instance", output)
+	assert.Equal(t, "my-instance-sandbox", output)
 
 
 	// Setup a TLS configuration to submit with the helper, a blank struct is acceptable
